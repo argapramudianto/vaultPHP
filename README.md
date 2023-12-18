@@ -62,13 +62,13 @@ var_dump($response->getKeys());
 
 ````php
 public function __construct(
-    HttpClient $httpClient,
+    ClientInterface $httpClient,
     AuthenticationProviderInterface $authProvider,
     string $apiHost
 )
 ````
 
-`HttpClient` takes every PSR-18 compliant HTTP Client Adapter like `"php-http/curl-client": "^1.7"`
+`HttpClient` takes every PSR-18 compliant HTTP Client Adapter like `"php-http/curl-client": "^1.7"`. It is worth noting that `HttpClient` deprecated since version 2.4, use Psr\Http\Client\ClientInterface instead; see https://www.php-fig.org/psr/psr-18/
 
 `AuthenticationProviderInterface` Authentication Provider from `/authentication/provider/*`
 
