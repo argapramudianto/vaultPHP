@@ -13,17 +13,25 @@ jobs:
     name: Testing PHP ${{ matrix.php-versions }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
       - name: Check PHP Version
         run: php -v
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
       - name: Install Dependencies for PHP ${{ matrix.php-versions }}
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      - name: Check format
+        run: composer run-script fmtcheck
+      - name: Rector
+        run: composer run-script rectorcheck
+      - name: Lint
+        run: composer run-script lint
       - name: Execute tests against PHP ${{ matrix.php-versions }}
-        run: composer test
+        run: composer run-script test
   typecheck:
     runs-on: ubuntu-latest
     name: TypeChecks against PSALM
