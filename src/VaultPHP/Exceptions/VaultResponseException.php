@@ -7,8 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use VaultPHP\Response\EndpointResponse;
 
 /**
- * Class VaultResponseException
- * @package VaultPHP\Exceptions
+ * Class VaultResponseException.
  */
 class VaultResponseException extends VaultException
 {
@@ -20,8 +19,7 @@ class VaultResponseException extends VaultException
 
     /**
      * VaultResponseException constructor.
-     * @param ResponseInterface $response
-     * @param RequestInterface $request
+     *
      * @param \Throwable $prevException
      */
     public function __construct(ResponseInterface $response, RequestInterface $request, $prevException = null)
@@ -31,7 +29,7 @@ class VaultResponseException extends VaultException
 
         $parsedResponse = EndpointResponse::fromResponse($response);
         $returnedErrors = $parsedResponse->getMetaData()->getErrors();
-        $errors = implode(', ',  is_array($returnedErrors) ? $returnedErrors : []);
+        $errors = implode(', ', is_array($returnedErrors) ? $returnedErrors : []);
 
         parent::__construct($errors, $response->getStatusCode(), $prevException);
     }

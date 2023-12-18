@@ -3,8 +3,7 @@
 namespace VaultPHP\Response;
 
 /**
- * Class MetaData
- * @package VaultPHP\Response
+ * Class MetaData.
  */
 class MetaData implements MetaDataInterface
 {
@@ -14,10 +13,10 @@ class MetaData implements MetaDataInterface
     /** @var string|null */
     private $lease_id;
 
-    /** @var boolean|null */
+    /** @var bool|null */
     private $renewable;
 
-    /** @var integer|null */
+    /** @var int|null */
     private $lease_duration;
 
     /** @var string|null */
@@ -34,6 +33,7 @@ class MetaData implements MetaDataInterface
 
     /**
      * MetaData constructor.
+     *
      * @param array|object $data
      */
     public function __construct($data = [])
@@ -43,6 +43,7 @@ class MetaData implements MetaDataInterface
 
     /**
      * @param array|object $data
+     *
      * @return void
      */
     private function populateData($data)
@@ -122,27 +123,31 @@ class MetaData implements MetaDataInterface
 
     /**
      * @param array $error
-     * @return boolean
+     *
+     * @return bool
      */
-    public function containsError($error) {
+    public function containsError($error)
+    {
         /** @var string $apiError */
         foreach ($this->getErrors() as $apiError) {
             /** @var string $errorMessage */
             foreach ($error as $errorMessage) {
-                if (preg_match("#${errorMessage}#i", $apiError)) {
+                if (preg_match("#{$errorMessage}#i", $apiError)) {
                     return true;
                 }
             }
         }
+
         return false;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasErrors()
     {
         $errors = $this->getErrors();
+
         return is_array($errors) && count($errors) >= 1;
     }
 }

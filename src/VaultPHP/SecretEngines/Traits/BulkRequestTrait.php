@@ -3,8 +3,7 @@
 namespace VaultPHP\SecretEngines\Traits;
 
 /**
- * Trait BulkRequestTrait
- * @package VaultPHP\SecretEngines\Traits
+ * Trait BulkRequestTrait.
  */
 trait BulkRequestTrait
 {
@@ -12,17 +11,18 @@ trait BulkRequestTrait
     protected $batch_input = [];
 
     /**
-     * @param mixed $request
      * @return $this
      */
     public function addBulkRequest($request)
     {
         $this->batch_input[] = $request;
+
         return $this;
     }
 
     /**
      * @param mixed[] $requests
+     *
      * @return void
      */
     public function addBulkRequests($requests)

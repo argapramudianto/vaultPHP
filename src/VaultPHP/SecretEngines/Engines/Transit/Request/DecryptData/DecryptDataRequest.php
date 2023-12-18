@@ -7,8 +7,7 @@ use VaultPHP\SecretEngines\Interfaces\ResourceRequestInterface;
 use VaultPHP\SecretEngines\Traits\NamedRequestTrait;
 
 /**
- * Class DecryptDataRequest
- * @package VaultPHP\SecretEngines\Transit\Request
+ * Class DecryptDataRequest.
  */
 final class DecryptDataRequest extends DecryptData implements ResourceRequestInterface, NamedRequestInterface
 {
@@ -16,6 +15,7 @@ final class DecryptDataRequest extends DecryptData implements ResourceRequestInt
 
     /**
      * DecryptDataRequest constructor.
+     *
      * @param string $name
      * @param string $ciphertext
      */

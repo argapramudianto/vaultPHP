@@ -3,28 +3,28 @@
 namespace Test\VaultPHP\SecretEngines;
 
 use GuzzleHttp\Psr7\Response;
-use Http\Client\HttpClient;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use VaultPHP\Authentication\Provider\Token;
 use VaultPHP\VaultClient;
 
 /**
- * Class SecretEngineTest
- * @package Test\VaultPHP\SecretEngines
+ * Class SecretEngineTest.
  */
 abstract class AbstractSecretEngineTestCase extends TestCase
 {
     protected function createApiClient($expectedMethod, $expectedPath, $expectedData, $responseData, $responseStatus = 200)
     {
-        $httpMock = $this->createMock(HttpClient::class);
+        $httpMock = $this->createMock(ClientInterface::class);
         $httpMock
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('sendRequest')
-            ->with($this->callback(function(RequestInterface $request) use ($expectedMethod, $expectedPath, $expectedData) {
-                $this->assertEquals($request->getMethod(), $expectedMethod);
-                $this->assertEquals($request->getUri()->getPath(), $expectedPath);
-                $this->assertEquals($request->getBody()->getContents(), json_encode($expectedData));
+            ->with(static::callback(function (RequestInterface $request) use ($expectedMethod, $expectedPath, $expectedData) {
+                $this->assertSame($request->getMethod(), $expectedMethod);
+                $this->assertSame($request->getUri()->getPath(), $expectedPath);
+                $this->assertSame($request->getBody()->getContents(), json_encode($expectedData));
+
                 return true;
             }))
             ->willReturn(new Response($responseStatus, [], json_encode($responseData)));

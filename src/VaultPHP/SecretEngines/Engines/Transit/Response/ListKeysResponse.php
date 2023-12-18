@@ -5,17 +5,13 @@ namespace VaultPHP\SecretEngines\Engines\Transit\Response;
 use VaultPHP\Response\EndpointResponse;
 
 /**
- * Class ListKeysResponse
- * @package VaultPHP\SecretEngines\Transit\Response
+ * Class ListKeysResponse.
  */
 final class ListKeysResponse extends EndpointResponse
 {
     /** @var string[] */
     protected $keys = [];
 
-    /**
-     * @return mixed
-     */
     public function getKeys()
     {
         return $this->keys;

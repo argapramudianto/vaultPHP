@@ -5,8 +5,7 @@ namespace VaultPHP\Response;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class EndpointResponse
- * @package VaultPHP\Response
+ * Class EndpointResponse.
  */
 class EndpointResponse implements EndpointResponseInterface
 {
@@ -15,8 +14,9 @@ class EndpointResponse implements EndpointResponseInterface
 
     /**
      * EndpointResponse constructor.
+     *
      * @param array|object $data
-     * @param array $meta
+     * @param array        $meta
      */
     final public function __construct($data = [], $meta = [])
     {
@@ -25,10 +25,10 @@ class EndpointResponse implements EndpointResponseInterface
     }
 
     /**
-     * @param $response
      * @return array
      */
-    protected static function getResponseContent(ResponseInterface $response) {
+    protected static function getResponseContent(ResponseInterface $response)
+    {
         $responseBody = $response->getBody();
         $responseBody->rewind();
         $responseBodyContents = $responseBody->getContents();
@@ -39,7 +39,6 @@ class EndpointResponse implements EndpointResponseInterface
     }
 
     /**
-     * @param ResponseInterface $response
      * @return static
      */
     public static function fromResponse(ResponseInterface $response)
@@ -54,10 +53,9 @@ class EndpointResponse implements EndpointResponseInterface
     }
 
     /**
-     * @param ResponseInterface $response
      * @return BulkEndpointResponse
      */
-    static function fromBulkResponse(ResponseInterface $response)
+    public static function fromBulkResponse(ResponseInterface $response)
     {
         $metaData = static::getResponseContent($response);
 
@@ -66,10 +64,10 @@ class EndpointResponse implements EndpointResponseInterface
         unset($metaData['data']);
 
         $responseDTO = new BulkEndpointResponse($domainData, $metaData);
-        $responseDTO->batch_results = array_map(function($batchResult) {
+        $responseDTO->batch_results = array_map(function ($batchResult) {
             /** @var object $batchResult */
-
             $errors = isset($batchResult->error) && $batchResult->error ? explode(', ', (string) $batchResult->error) : [];
+
             return new static($batchResult, [
                 'errors' => $errors,
             ]);
@@ -80,6 +78,7 @@ class EndpointResponse implements EndpointResponseInterface
 
     /**
      * @param array|object $data
+     *
      * @return void
      */
     private function populateData($data)

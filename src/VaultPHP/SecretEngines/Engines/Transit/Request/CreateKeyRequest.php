@@ -8,8 +8,7 @@ use VaultPHP\SecretEngines\Traits\ArrayExportTrait;
 use VaultPHP\SecretEngines\Traits\NamedRequestTrait;
 
 /**
- * Class CreateKeyRequest
- * @package VaultPHP\SecretEngines\Transit\Request
+ * Class CreateKeyRequest.
  */
 final class CreateKeyRequest implements ResourceRequestInterface, NamedRequestInterface
 {
@@ -21,6 +20,7 @@ final class CreateKeyRequest implements ResourceRequestInterface, NamedRequestIn
 
     /**
      * CreateKeyRequest constructor.
+     *
      * @param string $name
      */
     public function __construct($name)
@@ -30,11 +30,13 @@ final class CreateKeyRequest implements ResourceRequestInterface, NamedRequestIn
 
     /**
      * @param string $type
+     *
      * @return $this
      */
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 

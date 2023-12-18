@@ -2,17 +2,16 @@
 
 namespace Test\VaultPHP\Authentication\Provider;
 
-use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Psr7\Response;
-use VaultPHP\Authentication\Provider\UserPassword;
+use PHPUnit\Framework\TestCase;
 use VaultPHP\Authentication\AuthenticationMetaData;
+use VaultPHP\Authentication\Provider\UserPassword;
 use VaultPHP\Exceptions\VaultException;
 use VaultPHP\Response\EndpointResponse;
 use VaultPHP\VaultClient;
 
 /**
- * Class UserPasswordTest
- * @package Test\VaultPHP\Authentication\Provider
+ * Class UserPasswordTest.
  */
 final class UserPasswordTest extends TestCase
 {
@@ -27,7 +26,7 @@ final class UserPasswordTest extends TestCase
 
         $clientMock = $this->createMock(VaultClient::class);
         $clientMock
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('sendApiRequest')
             ->with('POST', '/v1/auth/userpass/login/foo', EndpointResponse::class, ['password' => 'bar'], false)
             ->willReturn($returnResponseClass);
@@ -37,8 +36,8 @@ final class UserPasswordTest extends TestCase
 
         $tokenMeta = $userPasswordAuth->authenticate();
 
-        $this->assertInstanceOf(AuthenticationMetaData::class, $tokenMeta);
-        $this->assertEquals('fooToken', $tokenMeta->getClientToken());
+        static::assertInstanceOf(AuthenticationMetaData::class, $tokenMeta);
+        static::assertSame('fooToken', $tokenMeta->getClientToken());
     }
 
     public function testWillReturnNothingWhenTokenReceiveFails()
@@ -48,7 +47,7 @@ final class UserPasswordTest extends TestCase
 
         $clientMock = $this->createMock(VaultClient::class);
         $clientMock
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('sendApiRequest')
             ->willReturn($returnResponseClass);
 
@@ -57,7 +56,7 @@ final class UserPasswordTest extends TestCase
 
         $tokenMeta = $userPasswordAuth->authenticate();
 
-        $this->assertFalse($tokenMeta);
+        static::assertFalse($tokenMeta);
     }
 
     public function testWillThrowWhenTryingToGetRequestClientBeforeInit()

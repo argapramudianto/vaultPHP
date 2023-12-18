@@ -6,8 +6,7 @@ use VaultPHP\SecretEngines\Interfaces\ArrayExportInterface;
 use VaultPHP\SecretEngines\Traits\ArrayExportTrait;
 
 /**
- * Class DecryptData
- * @package VaultPHP\SecretEngines\Transit\Request
+ * Class DecryptData.
  */
 class DecryptData implements ArrayExportInterface
 {
@@ -24,7 +23,8 @@ class DecryptData implements ArrayExportInterface
 
     /**
      * DecryptData constructor.
-     * @param string $ciphertext
+     *
+     * @param string      $ciphertext
      * @param string|null $context
      * @param string|null $nonce
      */
@@ -45,11 +45,13 @@ class DecryptData implements ArrayExportInterface
 
     /**
      * @param string $ciphertext
+     *
      * @return self
      */
     public function setCiphertext($ciphertext)
     {
         $this->ciphertext = $ciphertext;
+
         return $this;
     }
 
@@ -63,11 +65,13 @@ class DecryptData implements ArrayExportInterface
 
     /**
      * @param string|null $nonce
+     *
      * @return self
      */
     public function setNonce($nonce)
     {
         $this->nonce = $nonce;
+
         return $this;
     }
 
@@ -81,11 +85,13 @@ class DecryptData implements ArrayExportInterface
 
     /**
      * @param string|null $context
+     *
      * @return self
      */
     public function setContext($context)
     {
         $this->context = $context;
+
         return $this;
     }
 }

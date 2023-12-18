@@ -5,8 +5,7 @@ namespace VaultPHP\SecretEngines\Engines\Transit\Response;
 use VaultPHP\Response\EndpointResponse;
 
 /**
- * Class DecryptDataResponse
- * @package VaultPHP\SecretEngines\Transit\Response
+ * Class DecryptDataResponse.
  */
 final class DecryptDataResponse extends EndpointResponse
 {

@@ -24,21 +24,20 @@ use VaultPHP\SecretEngines\Engines\Transit\Response\ListKeysResponse;
 use VaultPHP\SecretEngines\Engines\Transit\Response\UpdateKeyConfigResponse;
 
 /**
- * Class Transit
- * @package VaultPHP\SecretEngines\Transit
+ * Class Transit.
  */
 final class Transit extends AbstractSecretEngine
 {
     /**
-     * @param CreateKeyRequest $createKeyRequest
      * @return CreateKeyResponse
+     *
      * @throws InvalidDataException
      * @throws InvalidRouteException
      * @throws VaultException
      */
     public function createKey(CreateKeyRequest $createKeyRequest)
     {
-        /** @var CreateKeyResponse */
+        /* @var CreateKeyResponse */
         return $this->vaultClient->sendApiRequest(
             'POST',
             sprintf('/v1/transit/keys/%s', urlencode($createKeyRequest->getName())),
@@ -48,15 +47,15 @@ final class Transit extends AbstractSecretEngine
     }
 
     /**
-     * @param EncryptDataRequest $encryptDataRequest
      * @return EncryptDataResponse
+     *
      * @throws InvalidDataException
      * @throws InvalidRouteException
      * @throws VaultException
      */
     public function encryptData(EncryptDataRequest $encryptDataRequest)
     {
-        /** @var EncryptDataResponse */
+        /* @var EncryptDataResponse */
         return $this->vaultClient->sendApiRequest(
             'POST',
             sprintf('/v1/transit/encrypt/%s', urlencode($encryptDataRequest->getName())),
@@ -66,15 +65,15 @@ final class Transit extends AbstractSecretEngine
     }
 
     /**
-     * @param EncryptDataBulkRequest $encryptDataBulkRequest
      * @return BulkEndpointResponse
+     *
      * @throws InvalidDataException
      * @throws InvalidRouteException
      * @throws VaultException
      */
     public function encryptDataBulk(EncryptDataBulkRequest $encryptDataBulkRequest)
     {
-        /** @var BulkEndpointResponse */
+        /* @var BulkEndpointResponse */
         return $this->vaultClient->sendApiRequest(
             'POST',
             sprintf('/v1/transit/encrypt/%s', urlencode($encryptDataBulkRequest->getName())),
@@ -84,15 +83,15 @@ final class Transit extends AbstractSecretEngine
     }
 
     /**
-     * @param DecryptDataRequest $decryptDataRequest
      * @return DecryptDataResponse
+     *
      * @throws InvalidDataException
      * @throws InvalidRouteException
      * @throws VaultException
      */
     public function decryptData(DecryptDataRequest $decryptDataRequest)
     {
-        /** @var DecryptDataResponse */
+        /* @var DecryptDataResponse */
         return $this->vaultClient->sendApiRequest(
             'POST',
             sprintf('/v1/transit/decrypt/%s', urlencode($decryptDataRequest->getName())),
@@ -102,8 +101,8 @@ final class Transit extends AbstractSecretEngine
     }
 
     /**
-     * @param DecryptDataBulkRequest $decryptDataBulkRequest
      * @return BulkEndpointResponse
+     *
      * @throws InvalidDataException
      * @throws InvalidRouteException
      * @throws VaultException
@@ -112,7 +111,7 @@ final class Transit extends AbstractSecretEngine
      */
     public function decryptDataBulk(DecryptDataBulkRequest $decryptDataBulkRequest)
     {
-        /** @var BulkEndpointResponse */
+        /* @var BulkEndpointResponse */
         return $this->vaultClient->sendApiRequest(
             'POST',
             sprintf('/v1/transit/decrypt/%s', urlencode($decryptDataBulkRequest->getName())),
@@ -123,13 +122,14 @@ final class Transit extends AbstractSecretEngine
 
     /**
      * @return ListKeysResponse
+     *
      * @throws InvalidDataException
      * @throws InvalidRouteException
      * @throws VaultException
      */
     public function listKeys()
     {
-        /** @var ListKeysResponse */
+        /* @var ListKeysResponse */
         return $this->vaultClient->sendApiRequest(
             'LIST',
             '/v1/transit/keys',
@@ -140,14 +140,16 @@ final class Transit extends AbstractSecretEngine
 
     /**
      * @param string $name
+     *
      * @return EndpointResponse
+     *
      * @throws InvalidDataException
      * @throws InvalidRouteException
      * @throws VaultException
      */
     public function deleteKey($name)
     {
-        /** @var EndpointResponse */
+        /* @var EndpointResponse */
         return $this->vaultClient->sendApiRequest(
             'DELETE',
             sprintf('/v1/transit/keys/%s', urlencode($name)),
@@ -157,15 +159,15 @@ final class Transit extends AbstractSecretEngine
     }
 
     /**
-     * @param UpdateKeyConfigRequest $updateKeyConfigRequest
      * @return UpdateKeyConfigResponse
+     *
      * @throws InvalidDataException
      * @throws InvalidRouteException
      * @throws VaultException
      */
     public function updateKeyConfig(UpdateKeyConfigRequest $updateKeyConfigRequest)
     {
-        /** @var UpdateKeyConfigResponse */
+        /* @var UpdateKeyConfigResponse */
         return $this->vaultClient->sendApiRequest(
             'POST',
             sprintf('/v1/transit/keys/%s/config', urlencode($updateKeyConfigRequest->getName())),

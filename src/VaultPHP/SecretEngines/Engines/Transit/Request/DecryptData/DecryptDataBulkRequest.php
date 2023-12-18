@@ -9,8 +9,7 @@ use VaultPHP\SecretEngines\Traits\BulkRequestTrait;
 use VaultPHP\SecretEngines\Traits\NamedRequestTrait;
 
 /**
- * Class DecryptDataBulkRequest
- * @package VaultPHP\SecretEngines\Transit\Request
+ * Class DecryptDataBulkRequest.
  */
 final class DecryptDataBulkRequest implements BulkResourceRequestInterface, NamedRequestInterface
 {
@@ -20,7 +19,8 @@ final class DecryptDataBulkRequest implements BulkResourceRequestInterface, Name
 
     /**
      * DecryptDataRequest constructor.
-     * @param string $name
+     *
+     * @param string        $name
      * @param DecryptData[] $batchRequests
      */
     public function __construct($name, $batchRequests = [])
@@ -28,5 +28,4 @@ final class DecryptDataBulkRequest implements BulkResourceRequestInterface, Name
         $this->setName($name);
         $this->addBulkRequests($batchRequests);
     }
-
 }

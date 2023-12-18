@@ -8,8 +8,7 @@ use VaultPHP\SecretEngines\Engines\Transit\Response\UpdateKeyConfigResponse;
 use VaultPHP\SecretEngines\Engines\Transit\Transit;
 
 /**
- * Class UpdateKeyConfigTest
- * @package Test\VaultPHP\SecretEngines\Transit
+ * Class UpdateKeyConfigTest.
  */
 final class UpdateKeyConfigTest extends AbstractSecretEngineTestCase
 {
@@ -31,21 +30,21 @@ final class UpdateKeyConfigTest extends AbstractSecretEngineTestCase
                     'keys' => [
                         'key1',
                         'key2',
-                    ]
-                ]
+                    ],
+                ],
             ]
         );
 
         $api = new Transit($client);
 
         $response = $api->updateKeyConfig($request);
-        $this->assertInstanceOf(UpdateKeyConfigResponse::class, $response);
+        static::assertInstanceOf(UpdateKeyConfigResponse::class, $response);
 
-        $this->assertEquals('foo', $request->getName());
-        $this->assertTrue($request->getDeletionAllowed());
-        $this->assertTrue($request->getExportable());
-        $this->assertTrue($request->getAllowPlaintextBackup());
-        $this->assertEquals(1337, $request->getMinDecryptionVersion());
-        $this->assertEquals(1338, $request->getMinEncryptionVersion());
+        static::assertSame('foo', $request->getName());
+        static::assertTrue($request->getDeletionAllowed());
+        static::assertTrue($request->getExportable());
+        static::assertTrue($request->getAllowPlaintextBackup());
+        static::assertSame(1337, $request->getMinDecryptionVersion());
+        static::assertSame(1338, $request->getMinEncryptionVersion());
     }
 }

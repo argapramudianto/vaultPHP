@@ -4,15 +4,14 @@ namespace Test\VaultPHP\Authentication\Provider;
 
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use VaultPHP\Authentication\Provider\AppRole;
 use VaultPHP\Authentication\AuthenticationMetaData;
+use VaultPHP\Authentication\Provider\AppRole;
 use VaultPHP\Exceptions\VaultException;
 use VaultPHP\Response\EndpointResponse;
 use VaultPHP\VaultClient;
 
 /**
- * Class AppRoleTest
- * @package Test\VaultPHP\Authentication\Provider
+ * Class AppRoleTest.
  */
 final class AppRoleTest extends TestCase
 {
@@ -27,7 +26,7 @@ final class AppRoleTest extends TestCase
 
         $clientMock = $this->createMock(VaultClient::class);
         $clientMock
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('sendApiRequest')
             ->with('POST', '/v1/auth/approle/login', EndpointResponse::class, ['role_id' => 'foo', 'secret_id' => 'bar'], false)
             ->willReturn($returnResponseClass);
@@ -37,8 +36,8 @@ final class AppRoleTest extends TestCase
 
         $tokenMeta = $AppRoleAuth->authenticate();
 
-        $this->assertInstanceOf(AuthenticationMetaData::class, $tokenMeta);
-        $this->assertEquals('fooToken', $tokenMeta->getClientToken());
+        static::assertInstanceOf(AuthenticationMetaData::class, $tokenMeta);
+        static::assertSame('fooToken', $tokenMeta->getClientToken());
     }
 
     public function testWillReturnNothingWhenTokenReceiveFails()
@@ -48,7 +47,7 @@ final class AppRoleTest extends TestCase
 
         $clientMock = $this->createMock(VaultClient::class);
         $clientMock
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('sendApiRequest')
             ->willReturn($returnResponseClass);
 
@@ -57,7 +56,7 @@ final class AppRoleTest extends TestCase
 
         $tokenMeta = $userPasswordAuth->authenticate();
 
-        $this->assertFalse( $tokenMeta);
+        static::assertFalse($tokenMeta);
     }
 
     public function testWillThrowWhenTryingToGetRequestClientBeforeInit()

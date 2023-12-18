@@ -9,19 +9,16 @@ use VaultPHP\SecretEngines\Traits\EncryptionTypeRequestTrait;
 use VaultPHP\SecretEngines\Traits\NamedRequestTrait;
 
 /**
- * Class EncryptDataRequest
- * @package VaultPHP\SecretEngines\Transit\Request\EncryptData
+ * Class EncryptDataRequest.
  */
-final class EncryptDataRequest extends EncryptData implements
-    ResourceRequestInterface,
-    NamedRequestInterface,
-    EncryptionTypeRequestInterface
+final class EncryptDataRequest extends EncryptData implements ResourceRequestInterface, NamedRequestInterface, EncryptionTypeRequestInterface
 {
     use NamedRequestTrait;
     use EncryptionTypeRequestTrait;
 
     /**
      * EncryptDataRequest constructor.
+     *
      * @param string $name
      * @param string $plaintext
      */

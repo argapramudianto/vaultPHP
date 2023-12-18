@@ -3,7 +3,7 @@
 namespace VaultPHP;
 
 use GuzzleHttp\Psr7\Request;
-use Http\Client\HttpClient;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use VaultPHP\Authentication\AuthenticationMetaData;
@@ -27,7 +27,7 @@ class VaultClient
     /** @var string */
     private $apiHost;
 
-    /** @var HttpClient */
+    /** @var ClientInterface */
     private $httpClient;
 
     /** @var AuthenticationProviderInterface */
@@ -38,16 +38,14 @@ class VaultClient
 
     /**
      * VaultClient constructor.
-     * @param HttpClient $httpClient
-     * @param AuthenticationProviderInterface $authProvider
+     *
      * @param string $apiHost
      */
     public function __construct(
-        HttpClient $httpClient,
+        ClientInterface $httpClient,
         AuthenticationProviderInterface $authProvider,
         $apiHost
-    )
-    {
+    ) {
         $this->httpClient = $httpClient;
         $this->apiHost = $apiHost;
 
@@ -57,6 +55,7 @@ class VaultClient
 
     /**
      * @return void
+     *
      * @throws VaultAuthenticationException
      */
     private function authenticate()
@@ -71,17 +70,14 @@ class VaultClient
 
                 $this->authenticationMetaData = $metaData;
             } catch (\Exception $e) {
-                throw new VaultAuthenticationException(
-                    sprintf('AuthProvider %s failed to fetch token', get_class($this->authProvider)),
-                    0,
-                    $e
-                );
+                throw new VaultAuthenticationException(sprintf('AuthProvider %s failed to fetch token', get_class($this->authProvider)), 0, $e);
             }
         }
     }
 
     /**
      * @param array|object $data
+     *
      * @return string
      */
     private function extractPayload($data)
@@ -94,12 +90,12 @@ class VaultClient
     }
 
     /**
-     * @param string $method
-     * @param string $endpoint
-     * @param string $returnClass
+     * @param string                         $method
+     * @param string                         $endpoint
+     * @param string                         $returnClass
      * @param array|ResourceRequestInterface $data
-     * @param bool $authRequired
-     * @return mixed
+     * @param bool                           $authRequired
+     *
      * @throws InvalidDataException
      * @throws InvalidRouteException
      * @throws VaultAuthenticationException
@@ -121,6 +117,7 @@ class VaultClient
         );
 
         $response = $this->sendRequest($request);
+
         return $this->parseResponse(
             $request,
             $response,
@@ -130,11 +127,9 @@ class VaultClient
     }
 
     /**
-     * @param RequestInterface $request
-     * @param ResponseInterface $response
      * @param string $returnClass
-     * @param boolean $isBulkRequest
-     * @return mixed
+     * @param bool   $isBulkRequest
+     *
      * @throws InvalidDataException
      * @throws InvalidRouteException
      * @throws VaultAuthenticationException
@@ -146,15 +141,14 @@ class VaultClient
         ResponseInterface $response,
         $returnClass,
         $isBulkRequest
-    )
-    {
+    ) {
         $status = $response->getStatusCode();
 
-        /**
+        /*
          * Looks like psalm can't handle the method exists with static functions
          */
         if (!$isBulkRequest) {
-            /** @psalm-suppress ArgumentTypeCoercion */
+            /* @psalm-suppress ArgumentTypeCoercion */
             if (!method_exists($returnClass, 'fromResponse')) {
                 throw new VaultException('Return Class declaration lacks static::fromResponse');
             }
@@ -162,7 +156,7 @@ class VaultClient
             /** @var EndpointResponse $responseDataDTO */
             $responseDataDTO = $returnClass::fromResponse($response);
         } else {
-            /** @psalm-suppress ArgumentTypeCoercion */
+            /* @psalm-suppress ArgumentTypeCoercion */
             if (!method_exists($returnClass, 'fromBulkResponse')) {
                 throw new VaultException('Return Class declaration lacks static::fromBulkResponse');
             }
@@ -180,7 +174,6 @@ class VaultClient
 
         if ($status >= 200 && $status < 300) {
             return $responseDataDTO;
-
         } elseif ($status >= 400 && $status < 500) {
             if ($status === 400) {
                 if ($responseMetaData->containsError(ApiErrors::ENCRYPTION_KEY_NOT_FOUND)) {
@@ -204,12 +197,12 @@ class VaultClient
             throw new VaultResponseException($response, $request);
         }
 
-        throw new VaultException(sprintf("server responded with unhandled status code %s", $response->getStatusCode()));
+        throw new VaultException(sprintf('server responded with unhandled status code %s', $response->getStatusCode()));
     }
 
     /**
-     * @param RequestInterface $request
      * @return ResponseInterface
+     *
      * @throws VaultException
      * @throws VaultHttpException
      */
@@ -225,7 +218,9 @@ class VaultClient
 
     /**
      * @param $request RequestInterface
+     *
      * @return RequestInterface
+     *
      * @throws VaultException
      */
     private function getDefaultRequest(RequestInterface $request)

@@ -5,13 +5,12 @@ namespace Test\VaultPHP\Response;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use VaultPHP\Exceptions\VaultException;
-use VaultPHP\Response\MetaData;
 use VaultPHP\Response\BulkEndpointResponse;
+use VaultPHP\Response\MetaData;
 use VaultPHP\SecretEngines\Engines\Transit\Response\DecryptDataResponse;
 
 /**
- * Class BulkEndpointResponseTest
- * @package Test\VaultPHP\Response
+ * Class BulkEndpointResponseTest.
  */
 final class BulkEndpointResponseTest extends TestCase
 {
@@ -27,41 +26,42 @@ final class BulkEndpointResponseTest extends TestCase
             ],
         ]));
         $bulkResponses = DecryptDataResponse::fromBulkResponse($response);
-        $this->assertInstanceOf(BulkEndpointResponse::class, $bulkResponses);
-        $this->assertTrue(is_array($bulkResponses->getBatchResults()));
+        static::assertInstanceOf(BulkEndpointResponse::class, $bulkResponses);
+        static::assertTrue(is_array($bulkResponses->getBatchResults()));
 
         // test foreach
         foreach ($bulkResponses as $batchResponse) {
-            $this->assertInstanceOf(DecryptDataResponse::class, $batchResponse);
+            static::assertInstanceOf(DecryptDataResponse::class, $batchResponse);
         }
 
         // can count
-        $this->assertCount(3, $bulkResponses);
+        static::assertCount(3, $bulkResponses);
 
         $bulkResponses->rewind();
-        $this->assertTrue($bulkResponses->valid());
+        static::assertTrue($bulkResponses->valid());
 
         // can interact with index
-        $this->assertInstanceOf(DecryptDataResponse::class, $bulkResponses[2]);
+        static::assertInstanceOf(DecryptDataResponse::class, $bulkResponses[2]);
 
         // can iterate
-        $this->assertSame($bulkResponses[0], $bulkResponses->current());
+        static::assertSame($bulkResponses[0], $bulkResponses->current());
 
         $bulkResponses->next();
-        $this->assertSame($bulkResponses[1], $bulkResponses->current());
+        static::assertSame($bulkResponses[1], $bulkResponses->current());
 
         $bulkResponses->next();
-        $this->assertSame($bulkResponses[2], $bulkResponses->current());
+        static::assertSame($bulkResponses[2], $bulkResponses->current());
 
         $bulkResponses->next();
-        $this->assertFalse($bulkResponses->valid());
+        static::assertFalse($bulkResponses->valid());
 
-        $this->assertEquals(3, $bulkResponses->key());
-        $this->assertTrue(isset($bulkResponses[0]));
-        $this->assertFalse(isset($bulkResponses[3]));
+        static::assertSame(3, $bulkResponses->key());
+        static::assertTrue(isset($bulkResponses[0]));
+        static::assertFalse(isset($bulkResponses[3]));
     }
 
-    public function testCantWriteToArrayStyleObject() {
+    public function testCantWriteToArrayStyleObject()
+    {
         $this->expectException(VaultException::class);
         $this->expectExceptionMessage('readonly');
 
@@ -75,10 +75,11 @@ final class BulkEndpointResponseTest extends TestCase
             ],
         ]));
         $bulkResponses = DecryptDataResponse::fromBulkResponse($response);
-        $bulkResponses[1] = "foo";
+        $bulkResponses[1] = 'foo';
     }
 
-    public function testCantDeleteFromArrayStyleObject() {
+    public function testCantDeleteFromArrayStyleObject()
+    {
         $this->expectException(VaultException::class);
         $this->expectExceptionMessage('readonly');
 
@@ -95,7 +96,8 @@ final class BulkEndpointResponseTest extends TestCase
         unset($bulkResponses[1]);
     }
 
-    public function testHasErrors() {
+    public function testHasErrors()
+    {
         $response = new Response(200, [], json_encode([
             'errors' => [],
             'data' => [
@@ -105,11 +107,11 @@ final class BulkEndpointResponseTest extends TestCase
             ],
         ]));
         $bulkResponses = DecryptDataResponse::fromBulkResponse($response);
-        $this->assertFalse($bulkResponses->hasErrors());
+        static::assertFalse($bulkResponses->hasErrors());
 
         $response = new Response(200, [], json_encode([
             'errors' => [
-                'oh no'
+                'oh no',
             ],
             'data' => [
                 'batch_results' => [
@@ -118,7 +120,7 @@ final class BulkEndpointResponseTest extends TestCase
             ],
         ]));
         $bulkResponses = DecryptDataResponse::fromBulkResponse($response);
-        $this->assertTrue($bulkResponses->hasErrors());
+        static::assertTrue($bulkResponses->hasErrors());
 
         $response = new Response(200, [], json_encode([
             'errors' => [
@@ -127,17 +129,18 @@ final class BulkEndpointResponseTest extends TestCase
                 'batch_results' => [
                     [],
                     [
-                        'error' => 'oh no'
+                        'error' => 'oh no',
                     ],
                     [],
                 ],
             ],
         ]));
         $bulkResponses = DecryptDataResponse::fromBulkResponse($response);
-        $this->assertTrue($bulkResponses->hasErrors());
+        static::assertTrue($bulkResponses->hasErrors());
     }
 
-    public function testGetErrors() {
+    public function testGetErrors()
+    {
         $response = new Response(200, [], json_encode([
             'errors' => [
                 'foo',
@@ -153,12 +156,12 @@ final class BulkEndpointResponseTest extends TestCase
             ],
         ]));
         $bulkResponses = DecryptDataResponse::fromBulkResponse($response);
-        $this->assertEquals([], $bulkResponses[0]->getMetaData()->getErrors());
-        $this->assertEquals(['baz', 'buz'], $bulkResponses[1]->getMetaData()->getErrors());
-        $this->assertEquals([], $bulkResponses[2]->getMetaData()->getErrors());
-        $this->assertEquals(['bam'], $bulkResponses[3]->getMetaData()->getErrors());
+        static::assertSame([], $bulkResponses[0]->getMetaData()->getErrors());
+        static::assertSame(['baz', 'buz'], $bulkResponses[1]->getMetaData()->getErrors());
+        static::assertSame([], $bulkResponses[2]->getMetaData()->getErrors());
+        static::assertSame(['bam'], $bulkResponses[3]->getMetaData()->getErrors());
 
-        $this->assertEquals(['foo', 'bar'], $bulkResponses->getMetaData()->getErrors());
+        static::assertSame(['foo', 'bar'], $bulkResponses->getMetaData()->getErrors());
     }
 
     public function testCanGetPopulateMetaDataFromBulkResponse()
@@ -171,31 +174,31 @@ final class BulkEndpointResponseTest extends TestCase
             'data' => [
                 'batch_results' => [
                     [
-                        'error' => 'batchError'
+                        'error' => 'batchError',
                     ],
                     [],
                     [
-                        'error' => 'batchError2'
+                        'error' => 'batchError2',
                     ],
                 ],
             ],
         ]));
         $arrayEndpointResponse = DecryptDataResponse::fromBulkResponse($response);
-        $this->assertSame(3, count($arrayEndpointResponse));
+        static::assertSame(3, count($arrayEndpointResponse));
 
         $basicMeta = $arrayEndpointResponse->getMetaData();
-        $this->assertEquals(['metaDataError', 'metaDataError2'], $basicMeta->getErrors());
-        $this->assertTrue($arrayEndpointResponse->hasErrors());
+        static::assertSame(['metaDataError', 'metaDataError2'], $basicMeta->getErrors());
+        static::assertTrue($arrayEndpointResponse->hasErrors());
 
         /** @var DecryptDataResponse $batchResponse */
-        foreach($arrayEndpointResponse as $batchResponse) {
-            $this->assertInstanceOf(DecryptDataResponse::class, $batchResponse);
-            $this->assertInstanceOf(MetaData::class, $batchResponse->getMetaData());
+        foreach ($arrayEndpointResponse as $batchResponse) {
+            static::assertInstanceOf(DecryptDataResponse::class, $batchResponse);
+            static::assertInstanceOf(MetaData::class, $batchResponse->getMetaData());
         }
 
-        $this->assertEquals(['batchError'], $arrayEndpointResponse[0]->getMetaData()->getErrors());
-        $this->assertEquals([], $arrayEndpointResponse[1]->getMetaData()->getErrors());
-        $this->assertEquals(['batchError2'], $arrayEndpointResponse[2]->getMetaData()->getErrors());
+        static::assertSame(['batchError'], $arrayEndpointResponse[0]->getMetaData()->getErrors());
+        static::assertSame([], $arrayEndpointResponse[1]->getMetaData()->getErrors());
+        static::assertSame(['batchError2'], $arrayEndpointResponse[2]->getMetaData()->getErrors());
     }
 
     public function testBulkPayloadWillBePopulatedToResponseClass()
@@ -212,9 +215,9 @@ final class BulkEndpointResponseTest extends TestCase
         ]));
 
         $arrayEndpointResponse = DecryptDataResponse::fromBulkResponse($response);
-        foreach($arrayEndpointResponse as $bulkResponse) {
+        foreach ($arrayEndpointResponse as $bulkResponse) {
             $expected = array_map('base64_decode', current($batchResponse));
-            $this->assertEquals(current($expected), $bulkResponse->getPlaintext());
+            static::assertSame(current($expected), $bulkResponse->getPlaintext());
             next($batchResponse);
         }
     }

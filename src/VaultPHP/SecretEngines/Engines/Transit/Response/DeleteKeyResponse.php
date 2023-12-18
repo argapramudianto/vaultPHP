@@ -5,8 +5,7 @@ namespace VaultPHP\SecretEngines\Engines\Transit\Response;
 use VaultPHP\Response\EndpointResponse;
 
 /**
- * Class DeleteKeyResponse
- * @package VaultPHP\SecretEngines\Transit\Response
+ * Class DeleteKeyResponse.
  */
 final class DeleteKeyResponse extends EndpointResponse
 {

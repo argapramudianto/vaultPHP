@@ -3,19 +3,18 @@
 namespace VaultPHP\Response;
 
 use ArrayAccess;
-use Countable;
 use Iterator;
 use VaultPHP\Exceptions\VaultException;
 
 /**
- * Class BulkEndpointResponse
+ * Class BulkEndpointResponse.
  *
  * @template-implements Iterator<int>
  * @template-implements ArrayAccess<int, mixed>
  */
-class BulkEndpointResponse extends EndpointResponse implements Iterator, ArrayAccess, Countable
+class BulkEndpointResponse extends EndpointResponse implements \Iterator, \ArrayAccess, \Countable
 {
-    /** @var integer */
+    /** @var int */
     private $iteratorPosition = 0;
 
     /**
@@ -26,7 +25,8 @@ class BulkEndpointResponse extends EndpointResponse implements Iterator, ArrayAc
     /**
      * @return bool
      */
-    public function hasErrors() {
+    public function hasErrors()
+    {
         $errorOccurred = $this->getMetaData()->hasErrors();
 
         if (!$errorOccurred) {
@@ -45,7 +45,8 @@ class BulkEndpointResponse extends EndpointResponse implements Iterator, ArrayAc
     /**
      * @return array
      */
-    public function getBatchResults() {
+    public function getBatchResults()
+    {
         return $this->batch_results;
     }
 
@@ -66,7 +67,7 @@ class BulkEndpointResponse extends EndpointResponse implements Iterator, ArrayAc
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function key()
     {
@@ -98,7 +99,8 @@ class BulkEndpointResponse extends EndpointResponse implements Iterator, ArrayAc
     }
 
     /**
-     * @param integer $offset
+     * @param int $offset
+     *
      * @return bool
      */
     public function offsetExists($offset)
@@ -107,8 +109,7 @@ class BulkEndpointResponse extends EndpointResponse implements Iterator, ArrayAc
     }
 
     /**
-     * @param integer $offset
-     * @return mixed
+     * @param int $offset
      */
     public function offsetGet($offset)
     {
@@ -116,8 +117,6 @@ class BulkEndpointResponse extends EndpointResponse implements Iterator, ArrayAc
     }
 
     /**
-     * @param mixed $offset
-     * @param mixed $value
      * @throws VaultException
      */
     public function offsetSet($offset, $value)
@@ -126,7 +125,6 @@ class BulkEndpointResponse extends EndpointResponse implements Iterator, ArrayAc
     }
 
     /**
-     * @param mixed $offset
      * @throws VaultException
      */
     public function offsetUnset($offset)

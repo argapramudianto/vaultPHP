@@ -8,8 +8,7 @@ use VaultPHP\SecretEngines\Traits\ArrayExportTrait;
 use VaultPHP\SecretEngines\Traits\NamedRequestTrait;
 
 /**
- * Class UpdateKeyConfigRequest
- * @package VaultPHP\SecretEngines\Transit\Request
+ * Class UpdateKeyConfigRequest.
  */
 final class UpdateKeyConfigRequest implements ResourceRequestInterface, NamedRequestInterface
 {
@@ -22,17 +21,18 @@ final class UpdateKeyConfigRequest implements ResourceRequestInterface, NamedReq
     /** @var int|null */
     protected $min_encryption_version;
 
-    /** @var boolean|null */
+    /** @var bool|null */
     protected $exportable;
 
-    /** @var boolean|null */
+    /** @var bool|null */
     protected $allow_plaintext_backup;
 
-    /** @var boolean|null */
+    /** @var bool|null */
     protected $deletion_allowed;
 
     /**
      * UpdateKeyConfigRequest constructor.
+     *
      * @param string $name
      */
     public function __construct($name)
@@ -42,51 +42,61 @@ final class UpdateKeyConfigRequest implements ResourceRequestInterface, NamedReq
 
     /**
      * @param $allow boolean
+     *
      * @return $this
      */
     public function setDeletionAllowed($allow)
     {
-        $this->deletion_allowed = (boolean)$allow;
+        $this->deletion_allowed = (bool) $allow;
+
         return $this;
     }
 
     /**
      * @param int $min_decryption_version
+     *
      * @return $this
      */
     public function setMinDecryptionVersion($min_decryption_version)
     {
         $this->min_decryption_version = $min_decryption_version;
+
         return $this;
     }
 
     /**
      * @param int $min_encryption_version
+     *
      * @return $this
      */
     public function setMinEncryptionVersion($min_encryption_version)
     {
         $this->min_encryption_version = $min_encryption_version;
+
         return $this;
     }
 
     /**
      * @param bool $exportable
+     *
      * @return $this
      */
     public function setExportable($exportable)
     {
         $this->exportable = $exportable;
+
         return $this;
     }
 
     /**
      * @param bool $allow_plaintext_backup
+     *
      * @return $this
      */
     public function setAllowPlaintextBackup($allow_plaintext_backup)
     {
         $this->allow_plaintext_backup = $allow_plaintext_backup;
+
         return $this;
     }
 

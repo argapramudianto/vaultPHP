@@ -3,8 +3,7 @@
 namespace VaultPHP\Authentication;
 
 /**
- * Class AuthenticationMetaData
- * @package VaultPHP\Authentication
+ * Class AuthenticationMetaData.
  */
 class AuthenticationMetaData
 {
@@ -13,12 +12,13 @@ class AuthenticationMetaData
 
     /**
      * AuthenticationMetaData constructor.
-     * @param null|object $fromAuth
+     *
+     * @param object|null $fromAuth
      */
     public function __construct($fromAuth = null)
     {
         if ($fromAuth) {
-            /** @var string token */
+            /* @var string token */
             $this->token = $fromAuth->client_token;
         }
     }
@@ -26,14 +26,16 @@ class AuthenticationMetaData
     /**
      * @return string
      */
-    public function getClientToken() {
+    public function getClientToken()
+    {
         return $this->token;
     }
 
     /**
      * @return bool
      */
-    public function isClientTokenPresent() {
-        return !!$this->token;
+    public function isClientTokenPresent()
+    {
+        return (bool) $this->token;
     }
 }
