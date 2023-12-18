@@ -3,8 +3,7 @@
 namespace VaultPHP\SecretEngines\Interfaces;
 
 /**
- * Interface ArrayExportInterface
- * @package VaultPHP\SecretEngines\Traits
+ * Interface ArrayExportInterface.
  */
 interface ArrayExportInterface
 {

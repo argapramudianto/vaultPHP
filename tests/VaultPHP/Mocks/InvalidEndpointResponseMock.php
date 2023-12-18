@@ -6,15 +6,10 @@ use Psr\Http\Message\ResponseInterface;
 use VaultPHP\Response\EndpointResponse;
 
 /**
- * Class InvalidEndpointResponseMock
- * @package Test\VaultPHP
+ * Class InvalidEndpointResponseMock.
  */
-class InvalidEndpointResponseMock extends EndpointResponse {
-
-    /**
-     * @param ResponseInterface $response
-     * @return mixed
-     */
+class InvalidEndpointResponseMock extends EndpointResponse
+{
     public static function fromResponse(ResponseInterface $response)
     {
         return 'IamInvalid';

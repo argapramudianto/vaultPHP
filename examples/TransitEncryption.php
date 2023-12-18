@@ -6,15 +6,15 @@ use Http\Client\Curl\Client;
 use VaultPHP\Authentication\Provider\Token;
 use VaultPHP\Exceptions\VaultException;
 use VaultPHP\Exceptions\VaultResponseException;
+use VaultPHP\SecretEngines\Engines\Transit\EncryptionType;
 use VaultPHP\SecretEngines\Engines\Transit\Request\CreateKeyRequest;
 use VaultPHP\SecretEngines\Engines\Transit\Request\DecryptData\DecryptDataRequest;
 use VaultPHP\SecretEngines\Engines\Transit\Request\EncryptData\EncryptDataRequest;
 use VaultPHP\SecretEngines\Engines\Transit\Request\UpdateKeyConfigRequest;
 use VaultPHP\SecretEngines\Engines\Transit\Transit;
-use VaultPHP\SecretEngines\Engines\Transit\EncryptionType;
 use VaultPHP\VaultClient;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 // setting up curl http client with SSL
 $httpClient = new Client(null, null, [
@@ -70,12 +70,10 @@ try {
     // list keys
     $listKeyResponse = $transitApi->listKeys();
     var_dump($listKeyResponse->getKeys());
-
 } catch (VaultResponseException $exception) {
     var_dump($exception->getMessage());
     var_dump($exception->getResponse());
     var_dump($exception->getRequest());
-
 } catch (VaultException $exception) {
     var_dump($exception->getMessage());
 }

@@ -3,8 +3,7 @@
 namespace VaultPHP\Exceptions;
 
 /**
- * Class VaultAuthenticationException
- * @package VaultPHP\Exceptions
+ * Class VaultAuthenticationException.
  */
 class VaultAuthenticationException extends VaultException
 {

@@ -6,8 +6,7 @@ use VaultPHP\Exceptions\VaultException;
 use VaultPHP\VaultClient;
 
 /**
- * Class AbstractAuthenticationProvider
- * @package VaultPHP\Authentication
+ * Class AbstractAuthenticationProvider.
  */
 abstract class AbstractAuthenticationProvider implements AuthenticationProviderInterface
 {
@@ -15,7 +14,6 @@ abstract class AbstractAuthenticationProvider implements AuthenticationProviderI
     private $vaultClient;
 
     /**
-     * @param VaultClient $VaultClient
      * @return void
      */
     public function setVaultClient(VaultClient $VaultClient)
@@ -25,6 +23,7 @@ abstract class AbstractAuthenticationProvider implements AuthenticationProviderI
 
     /**
      * @return VaultClient
+     *
      * @throws VaultException
      */
     public function getVaultClient()
@@ -32,7 +31,7 @@ abstract class AbstractAuthenticationProvider implements AuthenticationProviderI
         if (!$this->vaultClient) {
             throw new VaultException('Trying to request the VaultClient before initialization');
         }
-        
+
         return $this->vaultClient;
     }
 }

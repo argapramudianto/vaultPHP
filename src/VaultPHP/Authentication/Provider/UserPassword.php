@@ -12,8 +12,7 @@ use VaultPHP\Exceptions\VaultHttpException;
 use VaultPHP\Response\EndpointResponse;
 
 /**
- * Class UserPassword
- * @package VaultPHP\Authentication\Provider
+ * Class UserPassword.
  */
 class UserPassword extends AbstractAuthenticationProvider
 {
@@ -26,6 +25,7 @@ class UserPassword extends AbstractAuthenticationProvider
 
     /**
      * UserPassword constructor.
+     *
      * @param string $username
      * @param string $password
      */
@@ -37,6 +37,7 @@ class UserPassword extends AbstractAuthenticationProvider
 
     /**
      * @return bool|AuthenticationMetaData
+     *
      * @throws InvalidDataException
      * @throws InvalidRouteException
      * @throws VaultAuthenticationException
@@ -51,7 +52,7 @@ class UserPassword extends AbstractAuthenticationProvider
             $this->getAuthUrl(),
             EndpointResponse::class,
             [
-                'password' => $this->password
+                'password' => $this->password,
             ],
             false
         );

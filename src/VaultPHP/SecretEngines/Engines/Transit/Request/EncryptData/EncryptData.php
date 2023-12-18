@@ -6,8 +6,7 @@ use VaultPHP\SecretEngines\Interfaces\ArrayExportInterface;
 use VaultPHP\SecretEngines\Traits\ArrayExportTrait;
 
 /**
- * Class EncryptData
- * @package VaultPHP\SecretEngines\Transit\Request\EncryptData
+ * Class EncryptData.
  */
 class EncryptData implements ArrayExportInterface
 {
@@ -24,9 +23,10 @@ class EncryptData implements ArrayExportInterface
 
     /**
      * EncryptData constructor.
-     * @param string $plaintext
-     * @param null|string $context
-     * @param null|string $nonce
+     *
+     * @param string      $plaintext
+     * @param string|null $context
+     * @param string|null $nonce
      */
     public function __construct($plaintext, $context = null, $nonce = null)
     {
@@ -45,11 +45,13 @@ class EncryptData implements ArrayExportInterface
 
     /**
      * @param string $plaintext
+     *
      * @return self
      */
     public function setPlaintext($plaintext)
     {
         $this->plaintext = base64_encode($plaintext);
+
         return $this;
     }
 
@@ -63,11 +65,13 @@ class EncryptData implements ArrayExportInterface
 
     /**
      * @param string|null $nonce
+     *
      * @return self
      */
     public function setNonce($nonce)
     {
         $this->nonce = $nonce;
+
         return $this;
     }
 
@@ -81,11 +85,13 @@ class EncryptData implements ArrayExportInterface
 
     /**
      * @param string|null $context
+     *
      * @return self
      */
     public function setContext($context)
     {
         $this->context = $context;
+
         return $this;
     }
 }

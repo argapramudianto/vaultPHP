@@ -3,8 +3,7 @@
 namespace VaultPHP\SecretEngines\Interfaces;
 
 /**
- * Interface NamedRequestInterface
- * @package VaultPHP\SecretEngines\Interfaces
+ * Interface NamedRequestInterface.
  */
 interface NamedRequestInterface
 {
@@ -15,6 +14,7 @@ interface NamedRequestInterface
 
     /**
      * @param string $name
+     *
      * @return $this
      */
     public function setName($name);

@@ -3,8 +3,7 @@
 namespace VaultPHP\Exceptions;
 
 /**
- * Class KeyNameNotFoundException
- * @package VaultPHP\Exceptions
+ * Class KeyNameNotFoundException.
  */
 class KeyNameNotFoundException extends VaultResponseException
 {

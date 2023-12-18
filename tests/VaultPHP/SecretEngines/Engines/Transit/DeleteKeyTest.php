@@ -7,8 +7,7 @@ use VaultPHP\SecretEngines\Engines\Transit\Response\DeleteKeyResponse;
 use VaultPHP\SecretEngines\Engines\Transit\Transit;
 
 /**
- * Class DeleteKeyTest
- * @package Test\VaultPHP\SecretEngines\Transit
+ * Class DeleteKeyTest.
  */
 final class DeleteKeyTest extends AbstractSecretEngineTestCase
 {
@@ -23,6 +22,6 @@ final class DeleteKeyTest extends AbstractSecretEngineTestCase
 
         $api = new Transit($client);
         $response = $api->deleteKey('foobar');
-        $this->assertInstanceOf(DeleteKeyResponse::class, $response);
+        static::assertInstanceOf(DeleteKeyResponse::class, $response);
     }
 }

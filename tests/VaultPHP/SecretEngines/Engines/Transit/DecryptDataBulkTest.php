@@ -9,8 +9,7 @@ use VaultPHP\SecretEngines\Engines\Transit\Response\DecryptDataResponse;
 use VaultPHP\SecretEngines\Engines\Transit\Transit;
 
 /**
- * Class DecryptDataBulkTest
- * @package Test\VaultPHP\SecretEngines\Transit
+ * Class DecryptDataBulkTest.
  */
 final class DecryptDataBulkTest extends AbstractSecretEngineTestCase
 {
@@ -33,23 +32,22 @@ final class DecryptDataBulkTest extends AbstractSecretEngineTestCase
                     'batch_results' => [
                         ['plaintext' => base64_encode('plain')],
                         ['plaintext' => base64_encode('plain2')],
-                    ]
-                ]
+                    ],
+                ],
             ]
         );
 
         $api = new Transit($client);
         $response = $api->decryptDataBulk($decryptDataRequest);
 
-        $this->assertEquals(count($response), 2);
+        static::assertSame(count($response), 2);
 
         /** @var DecryptDataResponse $bulkResponseOne */
         $bulkResponseOne = $response[0];
-        $this->assertEquals('plain', $bulkResponseOne->getPlaintext());
+        static::assertSame('plain', $bulkResponseOne->getPlaintext());
 
         /** @var DecryptDataResponse $bulkResponseTwo */
         $bulkResponseTwo = $response[1];
-        $this->assertEquals('plain2', $bulkResponseTwo->getPlaintext());
-
+        static::assertSame('plain2', $bulkResponseTwo->getPlaintext());
     }
 }

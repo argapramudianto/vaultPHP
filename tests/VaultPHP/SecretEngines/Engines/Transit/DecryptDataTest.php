@@ -8,8 +8,7 @@ use VaultPHP\SecretEngines\Engines\Transit\Response\DecryptDataResponse;
 use VaultPHP\SecretEngines\Engines\Transit\Transit;
 
 /**
- * Class DecryptDataTest
- * @package Test\VaultPHP\SecretEngines\Transit
+ * Class DecryptDataTest.
  */
 final class DecryptDataTest extends AbstractSecretEngineTestCase
 {
@@ -26,19 +25,19 @@ final class DecryptDataTest extends AbstractSecretEngineTestCase
             [
                 'data' => [
                     'plaintext' => base64_encode('fooBar'),
-                ]
+                ],
             ]
         );
 
         $api = new Transit($client);
         $response = $api->decryptData($decryptDataRequest);
 
-        $this->assertInstanceOf(DecryptDataResponse::class, $response);
-        $this->assertEquals('fooBar', $response->getPlaintext());
+        static::assertInstanceOf(DecryptDataResponse::class, $response);
+        static::assertSame('fooBar', $response->getPlaintext());
 
-        $this->assertEquals('fooName', $decryptDataRequest->getName());
-        $this->assertEquals('fooContext', $decryptDataRequest->getContext());
-        $this->assertEquals('fooNonce', $decryptDataRequest->getNonce());
-        $this->assertEquals('fooCipher', $decryptDataRequest->getCiphertext());
+        static::assertSame('fooName', $decryptDataRequest->getName());
+        static::assertSame('fooContext', $decryptDataRequest->getContext());
+        static::assertSame('fooNonce', $decryptDataRequest->getNonce());
+        static::assertSame('fooCipher', $decryptDataRequest->getCiphertext());
     }
 }

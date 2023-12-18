@@ -12,8 +12,7 @@ use VaultPHP\Exceptions\VaultHttpException;
 use VaultPHP\Response\EndpointResponse;
 
 /**
- * Class Kubernetes
- * @package VaultPHP\Authentication\Provider
+ * Class Kubernetes.
  */
 class Kubernetes extends AbstractAuthenticationProvider
 {
@@ -21,11 +20,12 @@ class Kubernetes extends AbstractAuthenticationProvider
     private $role;
     /** @var string */
     private $jwt;
-    /** @var string  */
+    /** @var string */
     private $endpoint = '/v1/auth/kubernetes/login';
 
     /**
      * Kubernetes constructor.
+     *
      * @param string $role
      * @param string $jwt
      */
@@ -37,6 +37,7 @@ class Kubernetes extends AbstractAuthenticationProvider
 
     /**
      * @return bool|AuthenticationMetaData
+     *
      * @throws InvalidDataException
      * @throws InvalidRouteException
      * @throws VaultAuthenticationException

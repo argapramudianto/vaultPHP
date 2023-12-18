@@ -6,8 +6,7 @@ use VaultPHP\Authentication\AbstractAuthenticationProvider;
 use VaultPHP\Authentication\AuthenticationMetaData;
 
 /**
- * Class Token
- * @package VaultPHP\Authentication\Provider
+ * Class Token.
  */
 class Token extends AbstractAuthenticationProvider
 {
@@ -16,6 +15,7 @@ class Token extends AbstractAuthenticationProvider
 
     /**
      * Token constructor.
+     *
      * @param string $token
      */
     public function __construct($token)

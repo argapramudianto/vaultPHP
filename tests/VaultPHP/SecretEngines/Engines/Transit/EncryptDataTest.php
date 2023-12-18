@@ -9,8 +9,7 @@ use VaultPHP\SecretEngines\Engines\Transit\Response\EncryptDataResponse;
 use VaultPHP\SecretEngines\Engines\Transit\Transit;
 
 /**
- * Class EncryptDataTest
- * @package Test\VaultPHP\SecretEngines\Transit
+ * Class EncryptDataTest.
  */
 final class EncryptDataTest extends AbstractSecretEngineTestCase
 {
@@ -30,21 +29,21 @@ final class EncryptDataTest extends AbstractSecretEngineTestCase
             $encryptDataRequest->toArray(),
             [
                 'data' => [
-                    'ciphertext' => 'fooCipher'
-                ]
+                    'ciphertext' => 'fooCipher',
+                ],
             ]
         );
 
         $api = new Transit($client);
 
         $response = $api->encryptData($encryptDataRequest);
-        $this->assertInstanceOf(EncryptDataResponse::class, $response);
-        $this->assertEquals('fooCipher', $response->getCiphertext());
+        static::assertInstanceOf(EncryptDataResponse::class, $response);
+        static::assertSame('fooCipher', $response->getCiphertext());
 
-        $this->assertEquals('foobar', $encryptDataRequest->getName());
-        $this->assertEquals('fooNonce', $encryptDataRequest->getNonce());
-        $this->assertEquals('fooContext', $encryptDataRequest->getContext());
-        $this->assertEquals(EncryptionType::AES_256_GCM_96, $encryptDataRequest->getType());
-        $this->assertEquals(base64_encode('encryptMe'), $encryptDataRequest->getPlaintext());
+        static::assertSame('foobar', $encryptDataRequest->getName());
+        static::assertSame('fooNonce', $encryptDataRequest->getNonce());
+        static::assertSame('fooContext', $encryptDataRequest->getContext());
+        static::assertSame(EncryptionType::AES_256_GCM_96, $encryptDataRequest->getType());
+        static::assertSame(base64_encode('encryptMe'), $encryptDataRequest->getPlaintext());
     }
 }

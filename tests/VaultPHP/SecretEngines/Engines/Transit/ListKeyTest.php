@@ -7,8 +7,7 @@ use VaultPHP\SecretEngines\Engines\Transit\Response\ListKeysResponse;
 use VaultPHP\SecretEngines\Engines\Transit\Transit;
 
 /**
- * Class ListKeyTest
- * @package Test\VaultPHP\SecretEngines\Transit
+ * Class ListKeyTest.
  */
 final class ListKeyTest extends AbstractSecretEngineTestCase
 {
@@ -23,15 +22,15 @@ final class ListKeyTest extends AbstractSecretEngineTestCase
                     'keys' => [
                         'key1',
                         'key2',
-                    ]
-                ]
+                    ],
+                ],
             ]
         );
         $api = new Transit($client);
         $response = $api->listKeys();
 
-        $this->assertInstanceOf(ListKeysResponse::class, $response);
-        $this->assertEquals(['key1', 'key2'], $response->getKeys());
+        static::assertInstanceOf(ListKeysResponse::class, $response);
+        static::assertSame(['key1', 'key2'], $response->getKeys());
     }
 
     public function testListKeyRequestHasNoData()
@@ -46,6 +45,6 @@ final class ListKeyTest extends AbstractSecretEngineTestCase
         $api = new Transit($client);
         $response = $api->listKeys();
 
-        $this->assertInstanceOf(ListKeysResponse::class, $response);
+        static::assertInstanceOf(ListKeysResponse::class, $response);
     }
 }

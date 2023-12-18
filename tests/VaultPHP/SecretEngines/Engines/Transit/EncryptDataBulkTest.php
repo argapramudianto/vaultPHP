@@ -9,8 +9,7 @@ use VaultPHP\SecretEngines\Engines\Transit\Response\EncryptDataResponse;
 use VaultPHP\SecretEngines\Engines\Transit\Transit;
 
 /**
- * Class EncryptDataBulkTest
- * @package Test\VaultPHP\SecretEngines\Transit
+ * Class EncryptDataBulkTest.
  */
 final class EncryptDataBulkTest extends AbstractSecretEngineTestCase
 {
@@ -33,23 +32,22 @@ final class EncryptDataBulkTest extends AbstractSecretEngineTestCase
                     'batch_results' => [
                         ['ciphertext' => 'foo1'],
                         ['ciphertext' => 'foo2'],
-                    ]
-                ]
+                    ],
+                ],
             ]
         );
 
         $api = new Transit($client);
         $response = $api->encryptDataBulk($encryptRequest);
 
-        $this->assertEquals(count($response), 2);
+        static::assertSame(count($response), 2);
 
         /** @var EncryptDataResponse $bulkResponseOne */
         $bulkResponseOne = $response[0];
-        $this->assertEquals('foo1', $bulkResponseOne->getCiphertext());
+        static::assertSame('foo1', $bulkResponseOne->getCiphertext());
 
         /** @var EncryptDataResponse $bulkResponseTwo */
         $bulkResponseTwo = $response[1];
-        $this->assertEquals('foo2', $bulkResponseTwo->getCiphertext());
-
+        static::assertSame('foo2', $bulkResponseTwo->getCiphertext());
     }
 }

@@ -6,24 +6,23 @@ use VaultPHP\Exceptions\VaultException;
 use VaultPHP\VaultClient;
 
 /**
- * Interface AuthenticationProviderInterface
- * @package VaultPHP\Authentication
+ * Interface AuthenticationProviderInterface.
  */
 interface AuthenticationProviderInterface
 {
     /**
-     * @return AuthenticationMetaData|boolean
+     * @return AuthenticationMetaData|bool
      */
     public function authenticate();
 
     /**
-     * @param VaultClient $VaultClient
      * @return void
      */
     public function setVaultClient(VaultClient $VaultClient);
 
     /**
      * @return VaultClient
+     *
      * @throws VaultException
      */
     public function getVaultClient();

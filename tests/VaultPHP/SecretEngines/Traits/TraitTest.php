@@ -3,17 +3,16 @@
 namespace Test\VaultPHP\SecretEngines\Traits;
 
 use PHPUnit\Framework\TestCase;
-use VaultPHP\SecretEngines\Interfaces\ArrayExportInterface;
-use VaultPHP\SecretEngines\Interfaces\BulkResourceRequestInterface;
-use VaultPHP\SecretEngines\Interfaces\NamedRequestInterface;
 use VaultPHP\SecretEngines\Engines\Transit\EncryptionType;
 use VaultPHP\SecretEngines\Engines\Transit\Request\CreateKeyRequest;
 use VaultPHP\SecretEngines\Engines\Transit\Request\DecryptData\DecryptData;
 use VaultPHP\SecretEngines\Engines\Transit\Request\DecryptData\DecryptDataBulkRequest;
+use VaultPHP\SecretEngines\Interfaces\ArrayExportInterface;
+use VaultPHP\SecretEngines\Interfaces\BulkResourceRequestInterface;
+use VaultPHP\SecretEngines\Interfaces\NamedRequestInterface;
 
 /**
- * Class TraitTest
- * @package Test\VaultPHP\SecretEngines\Traits
+ * Class TraitTest.
  */
 class TraitTest extends TestCase
 {
@@ -22,13 +21,13 @@ class TraitTest extends TestCase
         $request = new CreateKeyRequest('fooTest');
         $request->setType(EncryptionType::RSA_2048);
 
-        $this->assertInstanceOf(ArrayExportInterface::class, $request);
+        static::assertInstanceOf(ArrayExportInterface::class, $request);
 
         $expectedArray = [
             'type' => 'rsa-2048',
             'name' => 'fooTest',
         ];
-        $this->assertEquals($expectedArray, $request->toArray());
+        static::assertSame($expectedArray, $request->toArray());
     }
 
     public function testNestedArrayExtractionFromRequest()
@@ -43,9 +42,9 @@ class TraitTest extends TestCase
             new DecryptData('foo3', 'fooContext3', 'fooNonce3')
         );
 
-        $this->assertInstanceOf(ArrayExportInterface::class, $request);
-        $this->assertInstanceOf(BulkResourceRequestInterface::class, $request);
-        $this->assertInstanceOf(NamedRequestInterface::class, $request);
+        static::assertInstanceOf(ArrayExportInterface::class, $request);
+        static::assertInstanceOf(BulkResourceRequestInterface::class, $request);
+        static::assertInstanceOf(NamedRequestInterface::class, $request);
 
         $expectedArray = [
             'name' => 'fooTest',
@@ -67,7 +66,7 @@ class TraitTest extends TestCase
                 ],
             ],
         ];
-        $this->assertEquals($expectedArray, $request->toArray());
-        $this->assertEquals('fooTest', $request->getName());
+        static::assertSame($expectedArray, $request->toArray());
+        static::assertSame('fooTest', $request->getName());
     }
 }

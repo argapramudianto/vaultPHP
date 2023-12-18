@@ -3,13 +3,13 @@
 namespace VaultPHP\Response;
 
 /**
- * Interface MetaDataInterface
- * @package VaultPHP\Response
+ * Interface MetaDataInterface.
  */
 interface MetaDataInterface
 {
     /**
      * GenericEndpointResponse constructor.
+     *
      * @param array $data
      */
     public function __construct($data);
@@ -25,7 +25,7 @@ interface MetaDataInterface
     public function getLeaseId();
 
     /**
-     * @return boolean|null
+     * @return bool|null
      */
     public function getRenewable();
 
@@ -55,12 +55,13 @@ interface MetaDataInterface
     public function getErrors();
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasErrors();
 
     /**
      * @param array $error
+     *
      * @return bool
      */
     public function containsError($error);

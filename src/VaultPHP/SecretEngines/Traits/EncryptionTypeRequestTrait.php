@@ -3,8 +3,7 @@
 namespace VaultPHP\SecretEngines\Traits;
 
 /**
- * Trait EncryptionTypeRequestTrait
- * @package VaultPHP\SecretEngines\Traits
+ * Trait EncryptionTypeRequestTrait.
  */
 trait EncryptionTypeRequestTrait
 {
@@ -21,11 +20,13 @@ trait EncryptionTypeRequestTrait
 
     /**
      * @param string $type
+     *
      * @return $this
      */
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 }

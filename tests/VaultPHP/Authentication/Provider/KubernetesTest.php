@@ -4,15 +4,14 @@ namespace Test\VaultPHP\Authentication\Provider;
 
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use VaultPHP\Authentication\Provider\Kubernetes;
 use VaultPHP\Authentication\AuthenticationMetaData;
+use VaultPHP\Authentication\Provider\Kubernetes;
 use VaultPHP\Exceptions\VaultException;
 use VaultPHP\Response\EndpointResponse;
 use VaultPHP\VaultClient;
 
 /**
- * Class KubernetesTest
- * @package Test\VaultPHP\Authentication\Provider
+ * Class KubernetesTest.
  */
 final class KubernetesTest extends TestCase
 {
@@ -27,7 +26,7 @@ final class KubernetesTest extends TestCase
 
         $clientMock = $this->createMock(VaultClient::class);
         $clientMock
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('sendApiRequest')
             ->with('POST', '/v1/auth/kubernetes/login', EndpointResponse::class, ['role' => 'foo', 'jwt' => 'bar'], false)
             ->willReturn($returnResponseClass);
@@ -37,8 +36,8 @@ final class KubernetesTest extends TestCase
 
         $tokenMeta = $kubernetesAuth->authenticate();
 
-        $this->assertInstanceOf(AuthenticationMetaData::class, $tokenMeta);
-        $this->assertEquals('fooToken', $tokenMeta->getClientToken());
+        static::assertInstanceOf(AuthenticationMetaData::class, $tokenMeta);
+        static::assertSame('fooToken', $tokenMeta->getClientToken());
     }
 
     public function testWillReturnNothingWhenTokenReceiveFails()
@@ -48,7 +47,7 @@ final class KubernetesTest extends TestCase
 
         $clientMock = $this->createMock(VaultClient::class);
         $clientMock
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('sendApiRequest')
             ->willReturn($returnResponseClass);
 
@@ -57,7 +56,7 @@ final class KubernetesTest extends TestCase
 
         $tokenMeta = $userPasswordAuth->authenticate();
 
-        $this->assertFalse( $tokenMeta);
+        static::assertFalse($tokenMeta);
     }
 
     public function testWillThrowWhenTryingToGetRequestClientBeforeInit()

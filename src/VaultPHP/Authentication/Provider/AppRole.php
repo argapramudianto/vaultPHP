@@ -12,8 +12,7 @@ use VaultPHP\Exceptions\VaultHttpException;
 use VaultPHP\Response\EndpointResponse;
 
 /**
- * Class AppRole
- * @package VaultPHP\Authentication\Provider
+ * Class AppRole.
  */
 class AppRole extends AbstractAuthenticationProvider
 {
@@ -23,22 +22,21 @@ class AppRole extends AbstractAuthenticationProvider
     /** @var string */
     private $secretId;
 
-    /** @var string  */
+    /** @var string */
     private $endpoint = '/v1/auth/approle/login';
 
     /**
      * AppRole constructor.
-     * @param $roleId
-     * @param $secretId
      */
     public function __construct($roleId, $secretId)
     {
         $this->roleId = $roleId;
-        $this->secretId= $secretId;
+        $this->secretId = $secretId;
     }
 
     /**
      * @return bool|AuthenticationMetaData
+     *
      * @throws InvalidDataException
      * @throws InvalidRouteException
      * @throws VaultAuthenticationException

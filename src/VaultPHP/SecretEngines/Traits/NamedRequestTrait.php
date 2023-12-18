@@ -3,8 +3,7 @@
 namespace VaultPHP\SecretEngines\Traits;
 
 /**
- * Trait NamedRequestTrait
- * @package VaultPHP\SecretEngines\Traits
+ * Trait NamedRequestTrait.
  */
 trait NamedRequestTrait
 {
@@ -21,11 +20,13 @@ trait NamedRequestTrait
 
     /**
      * @param string $name
+     *
      * @return $this
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 }
